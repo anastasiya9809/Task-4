@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class ExpressionCalculatorTest {
 
-    private static final String FIRST_EXPRESSION = "2 3 * 5 +";
+    private static final String FIRST_EXPRESSION = "2  3   * 5  +";
     private static final String SECOND_EXPRESSION = "2 3 * x +";
     private static final HashMap<String, Double> VARIABLE_VALUE_PAIRS = new HashMap<>();
 

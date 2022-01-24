@@ -1,5 +1,8 @@
 package com.epam.infohandling;
 
+import java.util.List;
+import java.util.Map;
+
 public class SentenceParser extends AbstractParser {
 
     public SentenceParser(Parser successor) {
@@ -12,6 +15,7 @@ public class SentenceParser extends AbstractParser {
         for (String part : parts) {
             if (part.contains("+") || part.contains("-") || part.contains("*") ||
                     part.contains("/")) {
+                part = "[" + part + "]";
                 Lexeme expression = Lexeme.expression(part);
                 composite.add(expression);
             } else {

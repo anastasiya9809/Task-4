@@ -12,7 +12,7 @@ public class SentenceParserTest {
             Lexeme.word("It"),
             Lexeme.word("is"),
             Lexeme.word("a"),
-            Lexeme.expression("1200  5 /"),
+            Lexeme.expression("[1200  5 /]"),
             Lexeme.word("established"),
             Lexeme.word("fact."));
     private static final String TEXT = "It is a [1200  5 /] established fact.";

@@ -5,18 +5,51 @@ import java.util.Map;
 
 public class TextLogic {
 
+    private ExpressionCalculator calculator;
+
+    public TextLogic(ExpressionCalculator calculator) {
+        this.calculator = calculator;
+    }
+
     public Composite parse(String text) {
         ChainBuilder builder = new ChainBuilder();
         Parser parser = builder.buildParser();
         return parser.parse(text);
     }
 
-    public Composite calculate(Composite text, Map<String, Double> parameters) {
-        return null;
+    public Composite evaluateExpressionsInSentence(Composite composite, Map<String, Double> parameters) {
+        Composite result = new Composite();
+        List<Component> components = composite.getChildren();
+        for (int i = 0; i < components.size(); i++) {
+            Component component = components.get(i);
+            Lexeme lexeme = (Lexeme) component;
+            String part = lexeme.getValue();
+            if (part.contains("+") || part.contains("-") || part.contains("*") ||
+                    part.contains("/")) {
+                part = part.substring(1, part.length() - 1);
+                double number = calculator.calculate(part, parameters);
+                part = Double.toString(number);
+                result.add(Lexeme.word(part));
+            } else {
+                result.add(component);
+            }
+        }
+        return result;
     }
 
-    public Composite reverse(Composite text) {
-        return null;
+    public Composite calculate(Composite text, Map<String, Double> parameters) {
+        List<Component> paragraphs = text.getChildren();
+        for (Component paragraph : paragraphs) {
+            Composite paragraphComposite = (Composite) paragraph;
+            List<Component> sentences = paragraphComposite.getChildren();
+
+            for (Component sentence : sentences) {
+                Composite sentenceComposite = (Composite) sentence;
+                evaluateExpressionsInSentence(sentenceComposite, parameters);
+            }
+        }
+
+        return text;
     }
 
     public String restore(Composite text) {
