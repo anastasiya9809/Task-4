@@ -13,10 +13,10 @@ public class SentenceParserTest {
             Lexeme.word("is"),
             Lexeme.word("a"),
             Lexeme.expression("[1200  5 /]"),
-            Lexeme.word("established"),
+            Lexeme.word("well-established"),
             Lexeme.word("fact.")
     );
-    private static final String TEXT = "It is a [1200  5 /] established fact.";
+    private static final String TEXT = "It is a [1200  5 /] well-established fact.";
 
     @Test
     public void testParseShouldParse()  {
@@ -25,7 +25,6 @@ public class SentenceParserTest {
 
         //when
         Composite expected = new Composite(LEXEMES);
-
         Composite actual = parser.parse(TEXT);
 
         //then

@@ -12,8 +12,11 @@ public class SentenceParser extends AbstractParser {
         Composite composite = new Composite(new ArrayList<>());
         String[] parts = text.split("[\\[\\]]");
         for (String part : parts) {
-            if (part.contains("+") || part.contains("-") || part.contains("*") ||
-                    part.contains("/")) {
+            char firstCharacter = ' ';
+            if (!part.isEmpty()) {
+                firstCharacter = part.charAt(0);
+            }
+            if (Character.isDigit(firstCharacter)) {
                 part = "[" + part + "]";
                 Lexeme expression = Lexeme.expression(part);
                 composite.add(expression);

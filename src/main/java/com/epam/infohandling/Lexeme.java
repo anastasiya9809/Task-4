@@ -16,6 +16,10 @@ public class Lexeme implements Component {
         return value;
     }
 
+    public LexemeType getType() {
+        return type;
+    }
+
     public static Lexeme word(String value) {
         return new Lexeme(value, LexemeType.WORD);
     }

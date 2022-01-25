@@ -1,8 +1,6 @@
 package com.epam.infohandling;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TextLogic {
 
@@ -18,14 +16,19 @@ public class TextLogic {
         return parser.parse(text);
     }
 
+    public String restore(Composite text) {
+        ChainBuilder builder = new ChainBuilder();
+        Restorer restorer = builder.buildRestorer();
+        return restorer.restore(text);
+    }
+
     public Composite evaluateExpressionsInSentence(Composite composite, Map<String, Double> parameters) {
         Composite result = new Composite(new ArrayList<>());
         List<Component> components = composite.getChildren();
         for (Component component : components) {
             Lexeme lexeme = (Lexeme) component;
-            String part = lexeme.getValue();
-            if (part.contains("+") || part.contains("-") || part.contains("*") ||
-                    part.contains("/")) {
+            if (lexeme.getType() == LexemeType.EXPRESSION) {
+                String part = lexeme.getValue();
                 part = part.substring(1, part.length() - 1);
                 double number = calculator.calculate(part, parameters);
                 part = Double.toString(number);
@@ -62,9 +65,25 @@ public class TextLogic {
         return result;
     }
 
-    public String restore(Composite text) {
-        ChainBuilder builder = new ChainBuilder();
-        Restorer restorer = builder.buildRestorer();
-        return restorer.restore(text);
+    public Composite sortParagraphs(Composite text) {
+        List<Component> paragraphs = text.getChildren();
+        List<Component> sortedParagraphs = new ArrayList<>(paragraphs.size());
+        Collections.copy(sortedParagraphs, paragraphs);
+        Collections.sort(sortedParagraphs, new ParagraphComparator());
+        return new Composite(sortedParagraphs);
+    }
+
+    public void sortWords(Composite text) {
+        List<Component> paragraphs = text.getChildren();
+        for (Component paragraphComponent : paragraphs) {
+            Composite paragraph = (Composite) paragraphComponent;
+            List<Component> sentences = paragraph.getChildren();
+
+            for (Component sentenceComponent : sentences) {
+                Composite sentence = (Composite) sentenceComponent;
+                List<Component> words = sentence.getChildren();
+                Collections.sort(words, new WordComparator());
+            }
+        }
     }
 }
