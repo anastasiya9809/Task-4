@@ -17,7 +17,7 @@ public class TextRestorer extends AbstractRestorer {
         for (Component component : paragraphs) {
             Composite composite = (Composite) component;
             String paragraph = successor.restore(composite);
-            result.append(paragraph + "\n ");
+            result.append(paragraph).append("\n ");
         }
         result.delete(result.length() - 2, result.length());
         return result.toString();

@@ -1,8 +1,5 @@
 package com.epam.infohandling;
 
-import java.util.List;
-import java.util.Map;
-
 public class SentenceParser extends AbstractParser {
 
     public SentenceParser(Parser successor) {
@@ -11,7 +8,7 @@ public class SentenceParser extends AbstractParser {
 
     public Composite parse(String text) {
         Composite composite = new Composite();
-        String[] parts = text.split("\\[|]");
+        String[] parts = text.split("[\\[\\]]");
         for (String part : parts) {
             if (part.contains("+") || part.contains("-") || part.contains("*") ||
                     part.contains("/")) {

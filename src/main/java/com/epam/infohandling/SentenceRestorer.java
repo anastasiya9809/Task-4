@@ -14,7 +14,7 @@ public class SentenceRestorer extends AbstractRestorer {
         for (Component component : words) {
             Lexeme lexeme = (Lexeme) component;
             String part = lexeme.getValue();
-            result.append(part + " ");
+            result.append(part).append(" ");
         }
         result.deleteCharAt(result.length() - 1);
         return result.toString();

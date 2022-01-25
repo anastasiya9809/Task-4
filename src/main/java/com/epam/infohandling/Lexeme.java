@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Lexeme implements Component {
 
-    private String value;
-    private LexemeType type;
+    private final String value;
+    private final LexemeType type;
 
     private Lexeme(String value, LexemeType type) {
         this.value = value;

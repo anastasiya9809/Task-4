@@ -14,7 +14,7 @@ public class ParagraphRestorer extends AbstractRestorer {
         for (Component component : sentences) {
             Composite composite = (Composite) component;
             String sentence = successor.restore(composite);
-            result.append(sentence + " ");
+            result.append(sentence).append(" ");
         }
         result.deleteCharAt(result.length() - 1);
         return result.toString();

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class TextLogic {
 
-    private ExpressionCalculator calculator;
+    private final ExpressionCalculator calculator;
 
     public TextLogic(ExpressionCalculator calculator) {
         this.calculator = calculator;
@@ -29,6 +29,9 @@ public class TextLogic {
                 part = part.substring(1, part.length() - 1);
                 double number = calculator.calculate(part, parameters);
                 part = Double.toString(number);
+                if (part.endsWith(".0")) {
+                    part = part.substring(0, part.length() - 2);
+                }
                 result.add(Lexeme.word(part));
             } else {
                 result.add(component);
