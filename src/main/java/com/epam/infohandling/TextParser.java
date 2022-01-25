@@ -1,5 +1,7 @@
 package com.epam.infohandling;
 
+import java.util.ArrayList;
+
 public class TextParser extends AbstractParser {
 
     public TextParser(Parser successor) {
@@ -7,7 +9,7 @@ public class TextParser extends AbstractParser {
     }
 
     public Composite parse(String text) {
-        Composite composite = new Composite();
+        Composite composite = new Composite(new ArrayList<>());
         String[] parts = text.split("\n");
         for (int i = 0; i < parts.length; i++) {
             parts[i] = parts[i].trim();

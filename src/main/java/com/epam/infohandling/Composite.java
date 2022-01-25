@@ -1,12 +1,15 @@
 package com.epam.infohandling;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Composite implements Component {
 
-    private final List<Component> children = new ArrayList<>();
+    private final List<Component> children;
+
+    public Composite(List<Component> children) {
+        this.children = children;
+    }
 
     public void add(Component child) {
         children.add(child);

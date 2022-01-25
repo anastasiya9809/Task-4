@@ -1,5 +1,7 @@
 package com.epam.infohandling;
 
+import java.util.ArrayList;
+
 public class SentenceParser extends AbstractParser {
 
     public SentenceParser(Parser successor) {
@@ -7,7 +9,7 @@ public class SentenceParser extends AbstractParser {
     }
 
     public Composite parse(String text) {
-        Composite composite = new Composite();
+        Composite composite = new Composite(new ArrayList<>());
         String[] parts = text.split("[\\[\\]]");
         for (String part : parts) {
             if (part.contains("+") || part.contains("-") || part.contains("*") ||

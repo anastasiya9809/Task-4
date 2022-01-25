@@ -1,5 +1,6 @@
 package com.epam.infohandling;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,10 +19,9 @@ public class TextLogic {
     }
 
     public Composite evaluateExpressionsInSentence(Composite composite, Map<String, Double> parameters) {
-        Composite result = new Composite();
+        Composite result = new Composite(new ArrayList<>());
         List<Component> components = composite.getChildren();
-        for (int i = 0; i < components.size(); i++) {
-            Component component = components.get(i);
+        for (Component component : components) {
             Lexeme lexeme = (Lexeme) component;
             String part = lexeme.getValue();
             if (part.contains("+") || part.contains("-") || part.contains("*") ||
@@ -41,18 +41,25 @@ public class TextLogic {
     }
 
     public Composite calculate(Composite text, Map<String, Double> parameters) {
+        Composite result = new Composite(new ArrayList<>());
         List<Component> paragraphs = text.getChildren();
-        for (Component paragraph : paragraphs) {
-            Composite paragraphComposite = (Composite) paragraph;
-            List<Component> sentences = paragraphComposite.getChildren();
 
-            for (Component sentence : sentences) {
-                Composite sentenceComposite = (Composite) sentence;
-                evaluateExpressionsInSentence(sentenceComposite, parameters);
+        for (Component paragraphComponent : paragraphs) {
+            Composite paragraph = (Composite) paragraphComponent;
+            List<Component> sentences = paragraph.getChildren();
+            Composite newParagraph = new Composite(new ArrayList<>());
+
+            for (Component sentenceComponent : sentences) {
+                Composite sentence = (Composite) sentenceComponent;
+                Composite newSentence = evaluateExpressionsInSentence(
+                        sentence, parameters);
+                newParagraph.add(newSentence);
             }
+
+            result.add(newParagraph);
         }
 
-        return text;
+        return result;
     }
 
     public String restore(Composite text) {

@@ -2,7 +2,8 @@ package com.epam.infohandling;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
+
+import java.util.Arrays;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -31,20 +32,20 @@ public class TextRestorerTest {
     private static final String THIRD_PARAGRAPH_STRING = "It is an established fact that a reader will be of a page " +
             "when looking at its layout.";
     private static final String FOURTH_PARAGRAPH_STRING = "Bye.";
-    private static final Composite TEXT = new Composite();
     private static final Composite FIRST_PARAGRAPH = mock(Composite.class);
     private static final Composite SECOND_PARAGRAPH = mock(Composite.class);
     private static final Composite THIRD_PARAGRAPH = mock(Composite.class);
     private static final Composite FOURTH_PARAGRAPH = mock(Composite.class);
+    private static final Composite TEXT = new Composite(Arrays.asList(
+            FIRST_PARAGRAPH,
+            SECOND_PARAGRAPH,
+            THIRD_PARAGRAPH,
+            FOURTH_PARAGRAPH
+    ));
     
     @Test
     public void testRestoreShouldRestore()  {
         //given
-        TEXT.add(FIRST_PARAGRAPH);
-        TEXT.add(SECOND_PARAGRAPH);
-        TEXT.add(THIRD_PARAGRAPH);
-        TEXT.add(FOURTH_PARAGRAPH);
-
         ParagraphRestorer paragraphRestorer = mock(ParagraphRestorer.class);
         when(paragraphRestorer.restore(FIRST_PARAGRAPH)).thenReturn(FIRST_PARAGRAPH_STRING);
         when(paragraphRestorer.restore(SECOND_PARAGRAPH)).thenReturn(SECOND_PARAGRAPH_STRING);

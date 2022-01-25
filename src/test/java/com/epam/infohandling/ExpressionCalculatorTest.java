@@ -3,9 +3,7 @@ package com.epam.infohandling;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
 
 public class ExpressionCalculatorTest {
 

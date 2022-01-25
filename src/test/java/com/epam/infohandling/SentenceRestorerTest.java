@@ -8,23 +8,21 @@ import java.util.List;
 
 public class SentenceRestorerTest {
 
-    private static final Composite SENTENCE = new Composite();
-    private static final List<Lexeme> LEXEMES = Arrays.asList(
+    private static final List<Component> LEXEMES = Arrays.asList(
             Lexeme.word("It"),
             Lexeme.word("is"),
             Lexeme.word("a"),
             Lexeme.expression("[1200  5 /]"),
             Lexeme.word("established"),
-            Lexeme.word("fact."));
+            Lexeme.word("fact.")
+    );
+    private static final Composite SENTENCE = new Composite(LEXEMES);
     private static final String TEXT = "It is a [1200  5 /] established fact.";
 
     @Test
     public void testRestoreShouldRestore()  {
         //given
         SentenceRestorer restorer = new SentenceRestorer(null);
-        for (Lexeme lexeme : LEXEMES) {
-            SENTENCE.add(lexeme);
-        }
 
         //when
         String result = restorer.restore(SENTENCE);

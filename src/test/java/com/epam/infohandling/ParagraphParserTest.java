@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.Arrays;
+
 import static org.mockito.Mockito.when;
 
 public class ParagraphParserTest {
@@ -29,9 +31,10 @@ public class ParagraphParserTest {
         ParagraphParser paragraphParser = new ParagraphParser(sentenceParser);
 
         //when
-        Composite expected = new Composite();
-        expected.add(COMPOSITE);
-        expected.add(COMPOSITE);
+        Composite expected = new Composite(Arrays.asList(
+                COMPOSITE,
+                COMPOSITE
+        ));
         Composite actual = paragraphParser.parse(TEXT);
 
         //then
