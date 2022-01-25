@@ -67,23 +67,38 @@ public class TextLogic {
 
     public Composite sortParagraphs(Composite text) {
         List<Component> paragraphs = text.getChildren();
-        List<Component> sortedParagraphs = new ArrayList<>(paragraphs.size());
+        List<Component> sortedParagraphs = new ArrayList<>();
+        for (int i = 0; i < paragraphs.size(); i++) {
+            sortedParagraphs.add(new Composite(new ArrayList<>()));
+        }
         Collections.copy(sortedParagraphs, paragraphs);
         Collections.sort(sortedParagraphs, new ParagraphComparator());
         return new Composite(sortedParagraphs);
     }
 
-    public void sortWords(Composite text) {
+    public Composite sortWords(Composite text) {
+        Composite result = new Composite(new ArrayList<>());
         List<Component> paragraphs = text.getChildren();
         for (Component paragraphComponent : paragraphs) {
             Composite paragraph = (Composite) paragraphComponent;
             List<Component> sentences = paragraph.getChildren();
+            Composite sortedParagraph = new Composite(new ArrayList<>());
 
             for (Component sentenceComponent : sentences) {
                 Composite sentence = (Composite) sentenceComponent;
                 List<Component> words = sentence.getChildren();
-                Collections.sort(words, new WordComparator());
+                List<Component> sortedWords = new ArrayList<>();
+                for (int i = 0; i < words.size(); i++) {
+                    sortedWords.add(new Composite(new ArrayList<>()));
+                }
+                Collections.copy(sortedWords, words);
+                Collections.sort(sortedWords, new WordComparator());
+
+                Composite sortedSentence = new Composite(sortedWords);
+                sortedParagraph.add(sortedSentence);
             }
+            result.add(sortedParagraph);
         }
+        return result;
     }
 }

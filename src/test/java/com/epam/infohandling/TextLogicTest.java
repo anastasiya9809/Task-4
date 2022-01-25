@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -94,7 +93,7 @@ public class TextLogicTest {
             Lexeme.word("Letraset"),
             Lexeme.word("sheets.")
     );
-    private static final List<Component> WORDS_AND_EXPRESSIONS_IN_THIRD_SENTENCE = Arrays.asList(
+    private static final List<Component> WORDS_AND_EXPRESSIONS_IN_THIRD_SENTENCE = Collections.singletonList(
             Lexeme.word("Bye.")
     );
     private static final List<Component> SENTENCES_WITH_EXPRESSIONS_IN_FIRST_PARAGRAPH = Arrays.asList(
@@ -222,7 +221,7 @@ public class TextLogicTest {
             Lexeme.word("Letraset"),
             Lexeme.word("popularised")
     );
-    private static final List<Component> WORDS_IN_THIRD_SENTENCE = Arrays.asList(
+    private static final List<Component> WORDS_IN_THIRD_SENTENCE = Collections.singletonList(
             Lexeme.word("Bye.")
     );
     private static final List<Component> SENTENCES_IN_FIRST_PARAGRAPH = Arrays.asList(
@@ -351,7 +350,7 @@ public class TextLogicTest {
         //then
         Assert.assertEquals(SENTENCE, result);
     }
-    
+
     @Test
     public void testCalculateShouldCalculate()  {
         //given
@@ -393,9 +392,9 @@ public class TextLogicTest {
         TextLogic logic = new TextLogic(new ExpressionCalculator());
 
         //when
-        logic.sortWords(TEXT);
+        Composite result = logic.sortWords(TEXT);
 
         //then
-        Assert.assertEquals(SORTED_TEXT_BY_WORDS, TEXT);
+        Assert.assertEquals(SORTED_TEXT_BY_WORDS, result);
     }
 }
